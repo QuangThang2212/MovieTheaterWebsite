@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http//www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>View Employee List</title>
+  <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+  <!-- CSS only -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
+        integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous"
+        referrerpolicy="no-referrer" />
+  <did th:replace="header :: myAdminHeader"></did>
+</head>
+</head>
+<body>
+<div class="container-fluid">
+  <!-- Header -->
+  <div class="h1 text-center mt-3 p-2" style="border-bottom: 1px solid #ccc;">View Employee List</div>
+
+  <div th:if="${message}" class="alert alert-success text-center">
+    [[${message}]]
+  </div>
+  <!-- Start Body -->
+  <div class="row justify-content-center">
+    <div class="col-md-11">
+
+      <div>
+        <a th:href="@{/employee/EmployeeRegister}"><button class="btn btn-primary"><i class="fa-solid fa-circle-plus"></i></i> Add new</button></a>
+      </div>
+
+      <form action="/viewEmployeeList" class="form-inline mb-4 mt-5 float-right">
+        <input name="search" th:value="${search}" class="form-control" type="text" placeholder="Search">
+        <button class="btn btn-primary"></button>
+      </form>
+
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Username</th>
+        <th scope="col">Full name</th>
+        <th scope="col">Date of birth</th>
+        <th scope="col">Gender</th>
+        <th scope="col">Email</th>
+        <th scope="col">Identity card</th>
+        <th scope="col">Phone number</th>
+        <th scope="col">Address</th>
+        <th scope="col">Register date</th>
+        <th scope="col">Edit</th>
+        <th scope="col">Delete</th>
+      </tr>
+      </thead>
+          <tbody>
+                    <tr th:each="employee : ${employeeList}">
+                      <td th:text="${employee.employeeID}"></td>
+                      <td th:text="${employee.account.userName}"></td>
+                      <td th:text="${employee.account.fullName}"></td>
+                      <td th:text="${employee.account.dateOfBirth}"></td>
+                      <td th:text="${employee.account.gender}"></td>
+                      <td th:text="${employee.account.email}"></td>
+                      <td th:text="${employee.account.identityCard}"></td>
+                      <td th:text="${employee.account.phoneNumber}"></td>
+                      <td th:text="${employee.account.address}"></td>
+                      <td th:text="${employee.account.registerDate}"></td>
+                      <td>
+                        <a th:href="@{'/employee/edit/' + ${employee.employeeID}}">
+                          <i class="fa-solid fa-pen-to-square"></i></a>
+                      </td>
+                      <td>
+                        <a th:href="@{'/employee/delete/' + ${employee.employeeID}}">
+                          <i class="fa-regular fa-trash-can"></i></a>
+                      </td>
+                    </tr>
+        </tbody>
+    </table>
+
+    <div class="mt-5 col-sm-12 d-flex justify-content-center">
+      <input type="hidden" th:value="${totalPage}" id="total-page">
+      <form id="form-paging" class="w-50" action="/viewEmployeeList" method="get">
+        <ul class="pagination justify-content-end" id="pagination"></ul>
+        <input type="hidden" th:value="${search}" name="search">
+        <input type="hidden" th:value="${currentPage}" name="currentPage" id="current-page">
+        <input type="hidden" th:value="${sizePage}" name="sizePage" id="size-page">
+      </form>
+    </div>
+
+
+</div>
+</div>
+<!-- End Body -->
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js" type="text/javascript"></script>
+
+
+<script type="text/javascript" th:src="@{/js/twbsPagination.js}"></script>
+<script type="text/javascript" th:src="@{/js/paging.js}"></script>
+
+</body>
+</html>

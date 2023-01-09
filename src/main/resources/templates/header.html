@@ -1,0 +1,58 @@
+<html lang="en">
+<div th:fragment="myheader">
+  <head>
+        <meta charset="UTF-8">
+        <title>header</title>
+        <!-- ICON -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" />
+        <!-- JS, Popper.js, and jQuery -->
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+        <!-- VALIDATION PLUGIN -->
+        <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+  </head>
+  <body>
+  <nav class="navbar navbar-expand-md navbar-dark" style="background-color: #1B4F93;">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbars" aria-controls="navbars" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse navbar-item" id="navbars">
+      <ul class="navbar-nav nav-list1">
+        <li class="nav-item mr-3">
+          <a class="nav-link text-white" href="/showtime">Showtimes</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-white" href="#" id="dropdown03" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Movies</a>
+          <div class="dropdown-menu my-2" aria-labelledby="dropdown03">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Romantic</a>
+            <a class="dropdown-item" href="#">Drama</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <form>
+      <div class="input-group">
+        <input class="form-control" type="text" placeholder="Search" aria-label="Search">
+        <div class="input-group-append">
+          <button class="btn btn-light" type="submit">
+            <i class="fas fa-search text-gray"></i>
+          </button>
+        </div>
+      </div>
+    </form>
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav nav-list2 ml-auto">
+        <li class="nav-item">
+          <a class="nav-link text-white" th:href="@{'/user'}"><i class="fa-solid fa-user"></i> Welcome [[${userName}]]</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" th:href="@{'/logout'}"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  </body>
+</div>
+</html>

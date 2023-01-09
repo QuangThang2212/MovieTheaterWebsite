@@ -1,0 +1,184 @@
+:root {
+    --selecting-color: rgb(5, 213, 5);
+    --background-color: rgb(232, 232, 232);
+    --sold-color: rgb(208, 0, 0);
+    --vip-color: rgb(88, 88, 254);
+    --seatDetail-gridWidth: 3.2rem;
+    --seatDetail-height: 2.2rem;
+
+    /*Choose button*/
+    --choose-SeatDetail: rgb(133, 131, 131);
+    --choose-SeatDetail-2: rgb(183, 183, 183);
+
+    /*Sold button*/
+    --Sold-SeatDetail: rgb(201, 0, 0);
+    --Sold-SeatDetail-2: rgb(255, 133, 133);
+
+    /*Selecting button*/
+    --Selecting-SeatDetail: rgb(52, 159, 52);
+    --Selecting-SeatDetail-2: rgb(104, 209, 104);
+
+    /*VIP button*/
+    --VIP-SeatDetail: rgb(49, 150, 194);
+    --VIP-SeatDetail-2: rgb(84, 212, 248);
+}
+body{
+    background-color: var(--background-color);
+}
+.containerQ{
+    background-color: white;
+    padding: 0.1%;
+    width: 92%;
+    margin: 1% 4%;
+    border-radius: 0.5%;
+    box-shadow: 0.8px 0.8px 6px 6px rgba(149, 149, 149, 0.226);
+}
+.container_Tilte {
+    display: flex;
+    justify-content: center;
+    font-size: large;
+    font-weight: bold;
+    padding: 1.2% 0%;
+    border-bottom: solid 1px var(--background-color);
+}
+.container_button{
+    margin: 1% 4%;
+    padding-bottom: 4%;
+    position: absolute;
+    right: 0;
+}
+.Screen {
+    width: 50%;
+    height: 100%;
+    margin: 3% 25%;
+}
+.header {
+    margin-top: 2%;
+    margin-left: 0.8%;
+}
+.header-title {
+    margin-right: 3%;
+    font-weight: bold;
+}
+.selection_warning{
+    width: fit-content;
+}
+.header-select {
+    height: 2rem;
+    width: 3.5rem;
+    padding-left: 0.5rem;
+    position: relative;
+    bottom: 5px;
+    border-radius: 10%;
+    border-color: var(--choose-SeatDetail-2);
+}
+.selection_screen {
+    width: 56%;
+    margin: 0% 22%;
+    padding-bottom: 0.8%;
+    border: solid gray 3px;
+    border-top: 2px;
+    border-left: 2px;
+    border-right: 2px;
+}
+.selection_screen-title {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1%;
+}
+.selection_screen-seat {
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 7%;
+    padding: 0% 0% 0% 1.9%;
+    display: grid;
+    grid-template-columns: repeat(2, var(--seatDetail-gridWidth)) 7rem repeat(3, var(--seatDetail-gridWidth));
+}
+.seat {
+    background-color: var(--choose-SeatDetail-2);
+    border-radius: 20%;
+    overflow: hidden;
+    float: left;
+    display: flex;
+    justify-content: center;
+    width: 75%;
+    height: 75%;
+}
+.selection_screen-seatDetail {
+    width: 2.7rem;
+    height: var(--seatDetail-height);
+    border-radius: 20%;
+    margin: 8% 0%;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+}
+.VipDetail{
+    background-color: var(--VIP-SeatDetail)
+}
+.VipDetail .VipSeat{
+    background-color: var(--VIP-SeatDetail-2);
+}
+.NormalDetail{
+    background-color: var(--choose-SeatDetail);
+}
+.NormalDetail .NormalSeat{
+    background-color: var(--choose-SeatDetail-2);
+}
+.SoldDetail {
+    background-color: var(--Sold-SeatDetail);
+}
+.SoldDetail .SoldSeat{
+    background-color: var(--Sold-SeatDetail-2);
+}
+.selection_screen-seatDetail input {
+    display: none;
+}
+.seat label {
+    width: 70%;
+    height: 2em;
+}
+
+.seat label {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+
+.seat input {
+    position: absolute;
+    display: none;
+    color: #fff !important;
+}
+.note {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 90%;
+    margin: 5% 10%;
+}
+.note-detail {
+    flex: 20%;
+    display: flex;
+    justify-content: center;
+    margin: 0% 2%;
+}
+.note-detail_color {
+    width: 10px;
+    height: 10px;
+    position: relative;
+    margin-right: 3px;
+    top: 7px;
+}
+.sold {
+    background-color: var(--Sold-SeatDetail);
+}
+.choose {
+    background-color: var(--choose-SeatDetail);
+}
+.VIP {
+    background-color: var(--VIP-SeatDetail);
+}
+.selecting {
+    background-color: var(--selecting-color);
+}

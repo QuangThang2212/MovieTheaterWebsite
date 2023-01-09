@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Confirm booking ticket</title>
+  <!-- CSS only -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" th:href="@{/css/bookingConfirm.css}" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <did th:replace="header :: myheader"></did>
+</head>
+<body>
+<div class="containerQ">
+  <div class="container_Tilte">CONFIRM BOOKING TICKET</div>
+  <div class="container-information">
+    <div class="information_table">
+      <div class="information_table-1">
+        <img
+                class="information_table-image"
+                th:src="${confirmObjectDTO.movie.image}"
+        />
+        <!--                onerror="this.src='https://cdn2.iconfinder.com/data/icons/symbol-blue-set-3/100/Untitled-1-93-512.png'"-->
+      </div>
+      <div class="information_table-2">
+        <div class="information_box">
+          <a href="" class="information_box-a" th:text="${confirmObjectDTO.movie.nameVietnam}" ></a>
+          <div class="basic_style-infor">
+            <div class="information_box-detail">Screen:</div>
+            <div class="information_box-infor" th:text="${confirmObjectDTO.movie.cinemaRoom.getCinemaRoomName()}"></div>
+          </div>
+          <div class="basic_style-infor">
+            <div class="information_box-detail">Date:</div>
+            <div class="information_box-infor" th:text="${confirmObjectDTO.dates.showDate}"></div>
+          </div>
+          <div class="basic_style-infor">
+            <div class="information_box-detail">Time:</div>
+            <div class="information_box-infor" th:text="${confirmObjectDTO.schedule.scheduleTime}"></div>
+          </div>
+          <div class="basic_style-infor">
+            <div class="information_box-detail">Seat:</div>
+            <div class="information_box-infor" th:text="${confirmObjectDTO.seatsSelec}"></div>
+          </div>
+          <div class="basic_style-infor">
+            <div class="information_box-detail">price:</div>
+            <div class="information_box-infor">
+              <div th:each="seat : ${confirmObjectDTO.seats}">
+                <div th:text="${seat.seatColumn+seat.seatRow+':  '+seat.seatType.price}"></div>
+              </div>
+            </div>
+          </div>
+          <div class="basic_style-infor">
+            <div class="information_box-detail">Total:</div>
+            <div class="information_box-infor" id="total" th:text="${confirmObjectDTO.total}"></div>
+          </div>
+        </div>
+        <div class="information_box">
+          <a href="" class="information_box-a">Check your booking information</a>
+          <div class="basic_style-infor">
+            <div class="information_box-detail">Full name:</div>
+            <div class="information_box-infor" th:text="${confirmObjectDTO.account.fullName}"></div>
+          </div>
+          <div class="basic_style-infor">
+            <div class="information_box-detail">Email:</div>
+            <div class="information_box-infor" th:text="${confirmObjectDTO.account.email}"></div>
+          </div>
+          <div class="basic_style-infor">
+            <div class="information_box-detail">Identity card:</div>
+            <div class="information_box-infor" th:text="${confirmObjectDTO.account.identityCard}"></div>
+          </div>
+          <div class="basic_style-infor">
+            <div class="information_box-detail">Phone number:</div>
+            <div class="information_box-infor" th:text="${confirmObjectDTO.account.phoneNumber}"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container_button">
+    <a class="btn btn-primary confirm_button"
+       th:href="@{/showtime/confirm/member/ticketInfor}">
+      <div><i class="fa fa-ticket"></i> Confirm booking ticket</div>
+    </a>
+  </div>
+</div>
+</body>
+</html>

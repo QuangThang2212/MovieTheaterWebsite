@@ -1,0 +1,118 @@
+@charset "ISO-8859-1";
+:root {
+    --background-color: rgb(232, 232, 232);
+    --content-color: white;
+    --choose-color: #007bff;
+    --margin-top-bottom: 25px;
+}
+body {
+    background-color: var(--background-color);
+}
+.containerQ {
+    width: 90%;
+    margin: 0% 5%;
+}
+.Select_Movie_Tilte {
+    display: flex;
+    justify-content: center;
+    font-size: x-large;
+    font-weight: bold;
+    margin: var(--margin-top-bottom) 0px;
+}
+.Showtime_Movie-table {
+    width: 100%;
+    height: 45px;
+    position: relative;
+    margin: var(--margin-top-bottom) 0px;
+}
+.Col_Style {
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    background-color: var(--content-color);
+    margin: auto;
+    text-align: center;
+    box-shadow: 1px 1px 2px 2px rgba(149, 149, 149, 0.226);
+}
+.Col_Style:hover{
+    transform: scale(1.3);
+}
+.Col_Style a {
+    text-decoration: none;
+}
+.choose{
+    background-color: var(--choose-color);
+    border-radius: 20px;
+}
+.choose .chooseDetail{
+    color: var(--content-color);
+}
+.DayShowTime {
+    font-size: small;
+    font-weight: lighter;
+    margin: 0px;
+}
+.Select_Movie {
+    background-color: var(--content-color);
+    padding: 1% 1% 3% 1%;
+    width: 100%;
+    height: 100%;
+    border-radius: 0.5%;
+    box-shadow: 0.8px 0.8px 6px 6px rgba(149, 149, 149, 0.226);
+    margin-bottom: 5%;
+}
+.grid_Container {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 1.4%;
+    border: solid var(--background-color);
+    border-top: 1px;
+    border-left: 1px;
+    border-right: 1px;
+}
+.grid_Container-1 {
+    flex: 20%;
+}
+.Select_Movie_table-image {
+    height: auto;
+    width: 65%;
+}
+.grid_Container-2 {
+    flex: 80%;
+}
+.Select_Movie_table-a {
+    font-size: x-large;
+    text-decoration: none;
+}
+.Select_Movie_table-EnglistName {
+    font-size: small;
+    color: gray;
+}
+.Select_Movie_table-ShowTimeSelec {
+    display: grid;
+    width: 80%;
+    margin-top: 1.3%;
+    grid-template-columns: repeat(9, 10%);
+    grid-auto-flow: row;
+    justify-content: space-between;
+}
+.ShowTimeSelec-style {
+    padding: 12% 0.5%;
+    margin: 5px 0px;
+    width: 90%;
+    border: dashed gray 1px;
+    font-size: 80%;
+    font-weight: bold;
+    background-color: var(--background-color);
+}
+.ShowTimeSelec-overTime{
+    color: #cccccc;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.ShowTimeSelec-button:hover{
+    color: var(--content-color);
+    background-color: #cccccc;
+}

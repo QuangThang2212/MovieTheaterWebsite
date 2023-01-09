@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Selection Seat</title>
+    <!-- CSS only -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" th:href="@{/css/Selec_Seat.css}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <did th:replace="header :: myheader"></did>
+</head>
+<body>
+    <form th:action="@{/showtime/{date}/{movieID}/{time}/confirm(date=${dateSlec}, movieID=${mopvieID}, time=${time})}"
+          method="post"
+          id="form_main"
+          autocomplete="on"
+          th:object="${ListOfSelectSeatDTO}">
+        <div th:unless="${cinemaRoom!=1}"
+             class="alert alert-danger text-center">There are no room for this movie</div>
+        <div th:unless="${cinemaRoom==1}" class="containerQ">
+            <div class="header">
+                <div class="d-flex">
+                    <div class="header-title">Select seat quantity:</div>
+                    <select class="header-select" id="selection">
+                        <div th:each="number : ${#numbers.sequence(0, availableSeat, 1)}"
+                             th:data-quantity="${#strings.toString(number)}+'_option'">
+                            <option th:value="${number}"
+                                    th:text="${number}"
+                                    th:id="${#strings.toString(number)}+'_option'"
+                                    class="header-select_option"></option>
+                        </div>
+                    </select>
+                </div>
+
+                <div class="alert alert-danger selection_warning" id="selection_warn"></div>
+            </div>
+            <div class="Screen">
+                <div class="selection_screen">
+                    <div class="selection_screen-seat">
+                        <div th:each="entryseat : ${seatStringMap}">
+                            <div th:if="${entryseat.value == vipStatus}"
+                                 class="selection_screen-seatDetail VipDetail"
+                                 th:id="${#strings.toString(entryseat.key.seatId)}+'_back_vip'">
+                                <input class="checkboxInput"
+                                       th:field="*{seats}"
+                                       th:id="${#strings.toString(entryseat.key.seatId)}+'VIP'"
+                                       th:value="${entryseat.key.seatId}"
+                                       type="checkbox"/>
+
+                                <label th:for="${#strings.toString(entryseat.key.seatId)}+'VIP'"
+                                       th:id="${#strings.toString(entryseat.key.seatId)}+'_label_vip'"
+                                       class="seat VipSeat"
+                                       th:data-back-vip="${#strings.toString(entryseat.key.seatId)}+'_back_vip'"
+                                       th:data-label-vip="${#strings.toString(entryseat.key.seatId)}+'_label_vip'"
+                                       th:data-input-vip="${#strings.toString(entryseat.key.seatId)}+'VIP'"
+                                       onclick = "changeChairStatus(this.getAttribute('data-back-vip'),
+                                                                    this.getAttribute('data-label-vip'),
+                                                                    this.getAttribute('data-input-vip'));
+                                                  totalNumber(this.getAttribute('data-label-vip'))"
+                                       th:text="${entryseat.key.seatColumn+entryseat.key.seatRow}"></label>
+                            </div>
+                            <div th:if="${entryseat.value == normalStatus}"
+                                 class="selection_screen-seatDetail NormalDetail"
+                                 th:id="${#strings.toString(entryseat.key.seatId)}+'_back_normal'">
+                                <input type="checkbox"
+                                       class="checkboxInput"
+                                       th:value="${entryseat.key.seatId}"
+                                       th:field="*{seats}"
+                                       th:id="${#strings.toString(entryseat.key.seatId)}+'normal'"/>
+
+                                <label th:for="${#strings.toString(entryseat.key.seatId)}+'normal'"
+                                       th:id="${#strings.toString(entryseat.key.seatId)}+'_label_normal'"
+                                       class="seat NormalSeat"
+                                       th:data-back-normal="${#strings.toString(entryseat.key.seatId)}+'_back_normal'"
+                                       th:data-label-normal="${#strings.toString(entryseat.key.seatId)}+'_label_normal'"
+                                       th:data-input-normal="${#strings.toString(entryseat.key.seatId)}+'normal'"
+                                       onclick = "changeChairStatus(this.getAttribute('data-back-normal'),
+                                                                    this.getAttribute('data-label-normal'),
+                                                                    this.getAttribute('data-input-normal'));
+                                                  totalNumber(this.getAttribute('data-label-normal'))"
+                                       th:text = "${entryseat.key.seatColumn+entryseat.key.seatRow}"></label>
+                            </div>
+                            <div th:if="${entryseat.value == soldStatus}"
+                                 class="selection_screen-seatDetail SoldDetail"
+                                 th:id="${#strings.toString(entryseat.key.seatId)}+'_back_sold'">
+                                <label th:id="${#strings.toString(entryseat.key.seatId)}+'_label_sold'"
+                                       class="seat SoldSeat"
+                                       th:text = "${entryseat.key.seatColumn+entryseat.key.seatRow}"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="selection_screen-title">Screen</div>
+                </div>
+                <div class="note">
+                    <div class="note-detail">
+                        <div class="note-detail_color selecting"></div>
+                        <div class="note-detail_text">Seat is selecting</div>
+                    </div>
+                    <div class="note-detail">
+                        <div class="note-detail_color sold"></div>
+                        <div class="note-detail_text">Seat is sold</div>
+                    </div>
+
+                    <div class="note-detail">
+                        <div class="note-detail_color choose"></div>
+                        <div class="note-detail_text">Seat can choose</div>
+                    </div>
+                    <div class="note-detail">
+                        <div class="note-detail_color VIP"></div>
+                        <div class="note-detail_text">Seat VIP</div>
+                    </div>
+                </div>
+            </div>
+            <div class="container_button">
+                <button type="submit" class="btn btn-primary active confirm_button" id="submit_button">
+                    <i class="fa fa-arrow-right"></i>  Continue
+                </button>
+            </div>
+        </div>
+    </form>
+<script type="text/javascript"  th:src="@{/js/Selec_Seat.js}"></script>
+</body>
+</html>

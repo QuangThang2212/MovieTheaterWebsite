@@ -1,0 +1,95 @@
+.h1 {
+    text-align: center;
+    padding-top: 10px;
+}
+.null1 {
+    width: 15%;
+}
+.null2 {
+    width: 15%;
+}
+
+.seatform {
+    display: flex;
+    padding-top: 20px;
+}
+.left-column {
+    width: 20%;
+}
+.center {
+    width: 30%;
+}
+.right-column {
+    width: 20%;
+}
+
+.seat {
+    margin: 4px;
+    background-color: #bfc2c5;
+    border-radius: 6px;
+    border: 1px solid #bfc2c5;
+    overflow: hidden;
+    float: left;
+}
+
+.seat label {
+    float: left;
+    line-height: 3em;
+    width: 3em;
+    height: 2em;
+}
+
+.seat label span {
+    text-align: center;
+    padding: 1px 0;
+    display: block;
+}
+
+.seat label input {
+    position: absolute;
+    display: none;
+    color: #fff !important;
+}
+/* selects all of the text within the input element and changes the color of the text */
+.seat label input + span {
+    font-family: "Times New Roman", Times, serif;
+    color: rgb(10, 10, 10);
+}
+
+/* This will declare how a selected input will look giving generic properties */
+.seat input:checked + span {
+    color: black;
+    text-shadow: 0 0 6px rgba(0, 0, 0, 0.8);
+}
+
+/*
+This following statements selects each category individually that contains an input element that is a checkbox and is checked (or selected) and chabges the background color of the span element.
+*/
+.action input:hover + span {
+    background-color: #0cf104;
+}
+.action input:checked + span {
+    background-color: #0cf104;
+}
+
+.form-group {
+    text-align: center;
+}
+.check {
+    text-align: center;
+    padding-top: 5px;
+}
+input[type="radio"] {
+    padding: 0.3em;
+    -webkit-appearance: none;
+    outline: 0.1px solid black;
+    outline-offset: 0.1em;
+}
+
+input[type="radio"]:checked {
+    display: inline-block;
+    background-color: rgb(8, 146, 244);
+}
+.vip {
+    padding-left: 1px;
+}

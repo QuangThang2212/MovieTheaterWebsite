@@ -1,0 +1,72 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http//www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>[[${pageTitle}]]</title>
+    <!-- CSS only -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+          integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <!-- ICON -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
+          integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+</head>
+<body>
+<div class="container-fluid">
+    <div class="text-center mt-3 p-2" style="border-bottom: 1px solid #ccc;">[[${pageTitle}]]</div>
+    <div class="mt-3 row justify-content-center">
+        <form id="createCinemaRoomInfor"
+              onsubmit="return validateForm()"
+              th:action="@{/cinemaRoom/add}"
+              method="post" th:object="${cinemaRoomDTO}"
+              class="col-lg-11">
+            <input type="hidden" th:field="*{roomID}">
+
+            <div class="form-group ">
+                <label for="cinemaRoomName">Cinema room name:</label>
+                <input type="text" th:field="*{cinemaRoomName}" class="form-control p-2 mb-3" placeholder="Cinema Room Name" id="cinemaRoomName">
+                <div id="cinemaRoomName_mess" class="text-danger ml-1" th:text="${cinemaRoomName_mess}"></div>
+            </div>
+            <div class="form-group ">
+                <label for="seatQuantity">Seat Quantity:</label>
+                <input type="text" th:field="*{seatQuantity}" class="form-control p-2 mb-3" placeholder="Seat Quantity" id="seatQuantity">
+                <div id="seatQuantity_mess" class="text-danger ml-1"></div>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class=" btn btn-primary" id="buttonSave">Save</button>
+                <button type="button" class=" btn btn-primary" onclick="backCinemaroom()" id="buttonBack" >Back</button>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+<script type="text/javascript">
+    function backCinemaroom(){
+        window.location = "[[@{/cinemaRoom}]]";
+    }
+    function validateForm(){
+        var quantity = document.getElementById("seatQuantity").value;
+        if(quantity%6!=0){
+            document.getElementById("seatQuantity_mess").innerHTML="Only excepted Quantity divisible by 6";
+            return false;
+        }else{
+            document.getElementById("seatQuantity_mess").innerHTML="";
+            return true;
+        }
+    }
+</script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js" type="text/javascript"></script>
+
+<script type="text/javascript" th:src="@{/js/createCinemaRoom.js}"></script>
+
+</body>
+</html>

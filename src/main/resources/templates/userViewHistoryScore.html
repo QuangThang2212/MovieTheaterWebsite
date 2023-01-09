@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User</title>
+    <!-- CSS only -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+          integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <!-- ICON -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"/>
+    <!-- JS, Popper.js, and jQuery -->
+    <!-- VALIDATION PLUGIN -->
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+    <link rel="stylesheet" th:href="@{/css/userHover.css}" />
+    <did th:replace="header :: myheader"></did>
+</head>
+
+<body>
+<!-- START HEADER -->
+<!-- END HEADER -->
+<div class="container-fluid">
+    <div class="row" style="height: 100vh;">
+        <div class="col-lg-2 col-md-3 shadow" style="padding: 0;">
+            <div class="d-flex justify-content-center my-3">
+                <img style="height: 100px; width: 100px;" class="img-responsive rounded-circle border"
+                     th:src="@{${account.image}}">
+            </div>
+            <div class="d-flex justify-content-center pt-2">
+                <h6>[[${userName}]]</h6>
+            </div>
+            <div class="d-flex justify-content-center mb-4" th:if="${account.member != null}">
+                <span><i class="fa-solid fa-star" style="color: rgb(223, 223, 98);"></i> Score: [[${account.member.score}]]</span>
+            </div>
+            <div class="border-top py-3">
+                <a class="text-decoration-none text-dark ml-4 hover-me" th:href="@{'/user'}">Account information</a>
+            </div>
+            <div class="border-top py-3">
+                <a class="text-decoration-none text-dark ml-4 hover-me font-weight-bold" th:href="@{'/user/history'}">History</a>
+            </div>
+            <div class="border-top py-3">
+                <a class="text-decoration-none text-dark ml-4 hover-me" th:href="@{'/user/bookedTicket'}">Booked
+                    ticket</a>
+            </div>
+            <div class="border-top border-bottom py-3">
+                <a class="text-decoration-none text-dark ml-4 hover-me" th:href="@{'/user/canceledTicket'}">Canceled
+                    ticket</a>
+            </div>
+        </div>
+        <div class="col-lg-10 col-md-9">
+            <div class="card mx-4 my-3 shadow-lg">
+                <div class="card-header">
+                    <h4 class="mt-2 text-center">History of score Adding / Using</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-5">
+                            <form action="/user/history" method="post" class="mb-4">
+                                <div class="form-group row">
+                                    <label for="fromDate" class="col-sm-3 col-form-label">From date<span
+                                            style="color: red">*</span> :</label>
+                                    <div class="col-sm-9">
+                                        <input type="date" class="form-control" id="fromDate" name="fromDate">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="toDate" class="col-sm-3 col-form-label">To date<span style="color: red">*</span>
+                                        :</label>
+                                    <div class="col-sm-9">
+                                        <input type="date" class="form-control" id="toDate" name="toDate">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-3"></div>
+                                    <div class="col-9">
+                                        <button type="submit" class="btn btn-primary mt-2"><i
+                                                class="fa-solid fa-check"></i> View score
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="mt-5">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">DATE CREATED</th>
+                                <th scope="col">MOVIE NAME</th>
+                                <th scope="col">ADDED SCORE</th>
+                                <th scope="col">USED SCORE</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="invoice : ${listInvoice}">
+                                <th scope="row">1</th>
+                                <td th:text="${invoice.bookDate}"></td>
+                                <td th:text="${invoice.movie.nameEnglish}"></td>
+                                <td th:text="${invoice.addscore}"></td>
+                                <td th:text="${invoice.useScore}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

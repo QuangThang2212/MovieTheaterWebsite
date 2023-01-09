@@ -1,0 +1,40 @@
+:root {
+    --background-color: rgb(232, 232, 232);
+    --content-color: white;
+    --margin-top-bottom: 25px;
+    --number-color: rgb(0, 139, 0);
+    --note-color: red;
+}
+#body {
+    background-color: var(--background-color);
+}
+.containerQ {
+    background-color: var(--content-color);
+    box-shadow: 1px 1px 2px 2px rgba(149, 149, 149, 0.226);
+    border-radius: 0.5%;
+    padding-bottom: 1.5%;
+}
+.container_Tilte {
+    display: flex;
+    justify-content: center;
+    font-size: large;
+    font-weight: bold;
+    padding: 1.2% 0%;
+    border-bottom: solid 1px var(--background-color);
+}
+.container_Search {
+    padding: 2% 0%;
+}
+.container_Search_form{
+    position: relative;
+    float: right;
+    padding-bottom: 1%;
+}
+.table_booking tbody tr td {
+    padding-top: 0.6%;
+    padding-bottom: 1.5%;
+}
+.id{
+    justify-content: center;
+    display: flex;
+}

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Confirm booking</title>
+    <!-- CSS only -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" th:href="@{/css/bookingConfirm.css}" />
+    <link rel="stylesheet" th:href="@{/css/sellingConfirm.css}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <did th:replace="header :: myheader"></did>
+</head>
+<body>
+<div class="containerQ">
+    <div class="container_Tilte">CONFIRM BOOKING TICKET</div>
+    <div class="container-information">
+        <div class="information_table">
+            <div class="information_table-1">
+                <img
+                        class="information_table-image"
+                        th:src="${invoice.movie.image}"
+                />
+                <!--                onerror="this.src='https://cdn2.iconfinder.com/data/icons/symbol-blue-set-3/100/Untitled-1-93-512.png'"-->
+            </div>
+            <div class="information_table-2">
+                <div class="information_box">
+                    <a href="" class="information_box-a" th:text="${invoice.movie.nameVietnam}" ></a>
+                    <div class="basic_style-infor">
+                        <div class="information_box-detail">Screen:</div>
+                        <div class="information_box-infor" th:text="${invoice.movie.cinemaRoom.getCinemaRoomName()}"></div>
+                    </div>
+                    <div class="basic_style-infor">
+                        <div class="information_box-detail">Date:</div>
+                        <div class="information_box-infor" th:text="${invoice.scheduleSeats.get(0).dates.showDate}"></div>
+                    </div>
+                    <div class="basic_style-infor">
+                        <div class="information_box-detail">Time:</div>
+                        <div class="information_box-infor" th:text="${invoice.scheduleSeats.get(0).schedule.scheduleTime}"></div>
+                    </div>
+                    <div class="basic_style-infor">
+                        <div class="information_box-detail">Seat:</div>
+                        <div class="information_box-infor">
+                            <span th:each="scheduleSeat : ${invoice.scheduleSeats}">
+                                <span th:text="${scheduleSeat.seat.seatColumn+scheduleSeat.seat.seatRow+' '}"> </span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="basic_style-infor">
+                        <div class="information_box-detail">price:</div>
+                        <div class="information_box-infor" >
+                            <div th:each="scheduleSeat : ${invoice.scheduleSeats}">
+                                <div th:text="${scheduleSeat.seat.seatColumn+scheduleSeat.seat.seatRow+': '+scheduleSeat.seat.seatType.price}"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="basic_style-infor">
+                        <div class="information_box-detail">Total:</div>
+                        <div class="information_box-infor" id="total" th:text="${invoice.totalMoney}"></div>
+                    </div>
+                </div>
+                <div class="information_box">
+                    <a href="" class="information_box-a">Member</a>
+                    <div class="search_result"
+                         id="search_result">
+                        <div class="basic_style-infor">
+                            <div class="search_result-detail">Member ID:</div>
+                            <div class="information_box-infor" th:text="${invoice.account.member.memberID}"></div>
+                        </div>
+                        <div class="basic_style-infor">
+                            <div class="search_result-detail">Identity Card:</div>
+                            <div class="information_box-infor" th:text="${invoice.account.identityCard}"></div>
+                        </div>
+                        <div class="basic_style-infor">
+                            <div class="search_result-detail">Full name:</div>
+                            <div class="information_box-infor" th:text="${invoice.account.fullName}"></div>
+                        </div>
+                        <div class="basic_style-infor">
+                            <div class="search_result-detail">Phone</div>
+                            <div class="information_box-infor" th:text="${invoice.account.phoneNumber}"></div>
+                        </div>
+                        <div class="basic_style-infor">
+                            <div class="search_result-detail">Score</div>
+                            <div class="information_box-infor score"  th:text="${invoice.account.member.score}"></div>
+                        </div>
+                        <div class="basic_style-infor">
+                            <div class="search_result-detail">Convert to ticket:</div>
+                            <form th:if="${invoice.account.member.score >= 10000}"
+                                  class="information_box-infor"
+                                  id="convert_Ticket"
+                                  method="post"
+                                  th:object="${convertDec}"
+                                  th:action="@{/ticketBookingManagement/{id}/ticketInfor(id=${id})}">
+                                <input type="radio" id="agree" th:field="*{convertTicket}" value="Agree">
+                                <label for="agree">Agree</label><br>
+                                <input type="radio" id="disagree" th:field="*{convertTicket}" value="Disagree">
+                                <label for="disagree">Disagree</label><br>
+                            </form>
+                            <div  class="information_box-infor" th:if="${invoice.account.member.score < 10000}">
+                                <div class="alert alert-danger text-center ">Member score is not enough to convert into ticket (>10000)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container_button">
+        <span class="confirm_button">
+            <a th:if="${invoice.account!=null && invoice.account.member.score < 10000}"
+               class="btn btn-primary active"
+               th:href="@{/ticketBookingManagement/{id}/ticketInfor(id=${id})}">
+                <i class="fa fa-ticket"></i> Confirm booking ticket
+            </a>
+            <button th:if="${invoice.account!=null && invoice.account.member.score >= 10000}"
+                    form="convert_Ticket"
+                    type="submit"
+                    class="btn btn-primary active">
+                <i class="fa fa-ticket"></i> Confirm booking ticket
+            </button>
+            <a class="btn btn-primary active"
+               th:href="@{/ticketBookingManagement}">
+                <i class="fa fa-x"></i> Back
+            </a>
+        </span>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Booking management</title>
+    <link rel="stylesheet" th:href="@{/css/ticketBookingManagement.css}" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" />
+    <did th:replace="header :: myheaderAdmin"></did>
+</head>
+<body id="body">
+<div class="m-3 containerQ">
+    <div class="container_Tilte">Booking list</div>
+    <div class="container_Content mx-3">
+        <div class="container_Search">
+            <span th:if="${warn==1}" class="alert alert-danger text-center w-25">No booking found!"</span>
+            <span class="container_Search_form">
+                <form class="form-inline" action="/ticketBookingManagement/search" method="post">
+                    <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search" aria-label="Search" />
+                    <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </span>
+        </div>
+        <div class="">
+            <table class="table table-sm table-striped table_booking mr-5">
+                <thead>
+                    <tr>
+                        <th scope="col" class="id">#</th>
+                        <th scope="col" class="invoiceid col-2 pl-4">Booking ID</th>
+                        <th scope="col" class="col-1 pl-4">Member ID</th>
+                        <th scope="col" class="col-1 pl-4">Full name</th>
+                        <th scope="col" class="col-1 pl-4">Identity_Card</th>
+                        <th scope="col" class="col-1 pl-4">Phone</th>
+                        <th scope="col" class="col-2 pl-4">Movie</th>
+                        <th scope="col" class="col-1 ">Time</th>
+                        <th scope="col" class="col-1 pl-4 ">Seat</th>
+                        <th scope="col" class="col-2 pl-4">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="invoice : ${invoices}">
+                        <th scope="row" class="id" th:text="${invoices.indexOf(invoice)+1}">1</th>
+                        <td th:text="${invoice.invoiceID}" class="invoiceid pl-4"></td>
+                        <td th:text="${invoice.account.accountID}" class=" pl-4"></td>
+                        <td th:text="${invoice.account.fullName}" class=" pl-4"></td>
+                        <td th:text="${invoice.account.identityCard}" class=" pl-4"></td>
+                        <td th:text="${invoice.account.phoneNumber}" class=" pl-4"></td>
+                        <td th:text="${invoice.movie.nameVietnam}" class=" pl-4"></td>
+                        <td th:text="${invoice.scheduleSeats.get(0).dates.showDate+' - '+ invoice.scheduleSeats.get(0).schedule.scheduleTime.format(timeFormatter)}"></td>
+                        <td class="pl-4">
+                            <span th:each="scheduleSeat : ${invoice.scheduleSeats}">
+                                <span th:text="${scheduleSeat.seat.seatColumn+scheduleSeat.seat.seatRow+' '}"> </span>
+                            </span>
+                        </td>
+                        <td class=" pl-4">
+                            <a th:if="${invoice.status==waitingForTicket}"
+                               class="btn btn-primary"
+                               th:text="${invoice.status.toLowerCase}"
+                               th:href="@{/ticketBookingManagement/{id}/waitingForTicket(id=${invoice.invoiceID})}"></a>
+                            <a th:if="${invoice.status==getTicket}"
+                               class="btn btn-success"
+                               th:text="${invoice.status.toLowerCase}"
+                               th:href="@{/ticketBookingManagement/{id}/getTicket(id=${invoice.invoiceID})}"></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="mt-5 col-sm-12 d-flex justify-content-center">
+        <input type="hidden" th:value="${totalPage}" id="total-page">
+        <form id="form-paging" class="w-50" action="/ticketBookingManagement/page" method="get">
+            <ul class="pagination justify-content-end" id="pagination"></ul>
+            <input type="hidden" th:value="${search}" name="search">
+            <input type="hidden" th:value="${currentPage}" name="currentPage" id="current-page">
+            <input type="hidden" th:value="${sizePage}" name="sizePage" id="size-page">
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript" th:src="@{/js/twbsPagination.js}"></script>
+<script type="text/javascript" th:src="@{/js/paging.js}"></script>
+</body>
+</html>

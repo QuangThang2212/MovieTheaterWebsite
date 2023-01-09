@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Add Movie</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+  <div class="h1 text-center mt-3 p-2 mb-3" style="border-bottom: 1px solid #ccc;">[[${pageTitle}]]</div>
+
+  <form th:action="@{/movie/add-movie}" id="movieInfor" method="post" enctype="multipart/form-data" th:object="${movieDTO}">
+    <input type="hidden" th:field="${movieDTO.movieId}" id="movieId" name="movieId">
+    <div class="mt-3">
+      <div class="font-weight-bold">
+        <label for="nameEnglish">Movie name (ENG): <span class="text-danger">*</span></label>
+      </div>
+      <input type="text" th:value="${movieDTO.getNameEnglish()}" name="nameEnglish" id="nameEnglish" class="col-12 form-control" placeholder="Movie name (ENG)">
+      <div id="nameEnglish_mess" class="text-danger ml-1"></div>
+    </div>
+
+    <div class="mt-3">
+      <div class="font-weight-bold">
+        <label for="nameVietnam">Movie name (VN): <span class="text-danger">*</span></label>
+      </div>
+      <input type="text" th:value="${movieDTO.getNameVietnam()}" name="nameVietnam" id="nameVietnam" class="col-12 form-control" placeholder="Movie name (VN)">
+      <div id="nameVietnam_mess" class="text-danger ml-1"></div>
+    </div>
+
+    <div class="mt-3">
+      <div class="font-weight-bold mt-3">
+        <label for="fromDate">From date: <span class="text-danger">*</span></label>
+      </div>
+      <input type="date" th:field="${movieDTO.fromDate}" name="fromDate" id="fromDate" class="col-12 form-control" placeholder="dd/mm/yyyy">
+      <div id="fromDate_mess" class="text-danger ml-1"></div>
+    </div>
+
+    <div class="mt-3">
+      <div class="font-weight-bold mt-3">
+        <label for="toDate">To date: <span class="text-danger">*</span></label>
+      </div>
+      <input type="date" th:field="${movieDTO.toDate}"  name="toDate" id="toDate" class="col-12 form-control" placeholder="dd/mm/yyyy">
+      <div id="toDate_mess" class="text-danger ml-1"></div>
+    </div>
+
+    <div class="mt-3">
+      <div class="font-weight-bold mt-3">
+        <label for="actor">Actor: <span class="text-danger">*</span></label>
+      </div>
+      <input type="text" th:field="${movieDTO.actor}" name="actor" id="actor" class="col-12 form-control" placeholder="Actor">
+      <div id="actor_mess" class="text-danger ml-1"></div>
+    </div>
+
+    <div class="mt-3">
+      <div class="font-weight-bold mt-3">
+        <label for="company">Movie Product Company: <span class="text-danger">*</span></label>
+      </div>
+      <input type="text" th:field="${movieDTO.company}" name="company" id="company" class="col-12 form-control" placeholder="Movie Product Company">
+      <div id="company_mess" class="text-danger ml-1"></div>
+    </div>
+
+    <div class="mt-3">
+      <div class="font-weight-bold mt-3">
+        <label for="director">Director: <span class="text-danger">*</span></label>
+      </div>
+      <input type="text" th:field="${movieDTO.director}" name="director" id="director" class="col-12 form-control" placeholder="Director">
+      <div id="director_mess" class="text-danger ml-1"></div>
+    </div>
+
+    <div class="mt-3">
+      <div class="font-weight-bold mt-3">
+        <label for="duration">Duration: <span class="text-danger">*</span></label>
+      </div>
+      <input type="text" th:field="${movieDTO.duration}" name="duration" id="duration" class="col-12 form-control" placeholder="Duration">
+      <div id="duration_mess" class="text-danger ml-1"></div>
+    </div>
+
+    <div class="mt-3">
+      <div class="font-weight-bold mt-3">
+        <label for="version">Version: <span class="text-danger">*</span></label>
+      </div>
+      <input type="text" th:field="${movieDTO.version}" name="version" id="version" class="col-12 form-control" placeholder="Version">
+      <div id="vertion_mess" class="text-danger ml-1"></div>
+    </div>
+
+    <div class="mt-3">
+      <div class="font-weight-bold mt-3">
+        <label for="">Type: <span class="text-danger">*</span></label>
+      </div>
+      <div class="row">
+        <div class="ml-3 col-3">
+          <div class="form-check mt-2">
+            <input class="form-check-input" type="checkbox" value="hanhdong" id="hanhdong" name="type" th:checked="${#lists.contains(movieDTO.getType(), 'hanhdong')}"/>
+            <label class="form-check-label" for="hanhdong">Hành động</label>
+          </div>
+
+          <div class="form-check mt-2">
+            <input class="form-check-input" type="checkbox" value="haihuoc" id="haihuoc" name="type" th:checked="${#lists.contains(movieDTO.getType(), 'haihuoc')}"/>
+            <label class="form-check-label" for="haihuoc">Hài hước</label>
+          </div>
+
+          <div class="form-check mt-2">
+            <input class="form-check-input" type="checkbox" value="langman" id="langman" name="type" th:checked="${#lists.contains(movieDTO.getType(), 'langman')}"/>
+            <label class="form-check-label" for="langman">Lãng mạn</label>
+          </div>
+
+          <div class="form-check mt-2">
+            <input class="form-check-input" type="checkbox" value="tinhcam" id="tinhcam" name="type" th:checked="${#lists.contains(movieDTO.getType(), 'tinhcam')}"/>
+            <label class="form-check-label" for="tinhcam">Tình cảm</label>
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="form-check mt-2">
+            <input class="form-check-input" type="checkbox" value="vientuong" id="vientuong" name="type" th:checked="${#lists.contains(movieDTO.getType(), 'vientuong')}"/>
+            <label class="form-check-label" for="vientuong">Viễn tưởng</label>
+          </div>
+
+          <div class="form-check mt-2">
+            <input class="form-check-input" type="checkbox" value="chientranh" id="chientranh" name="type" th:checked="${#lists.contains(movieDTO.getType(), 'chientranh')}"/>
+            <label class="form-check-label" for="chientranh">Chiến tranh</label>
+          </div>
+
+          <div class="form-check mt-2">
+            <input class="form-check-input" type="checkbox" value="kiemhiep" id="kiemhiep" name="type" th:checked="${#lists.contains(movieDTO.getType(), 'kiemhiep')}"/>
+            <label class="form-check-label" for="kiemhiep">Kiếm hiệp</label>
+          </div>
+
+          <div class="form-check mt-2">
+            <input class="form-check-input" type="checkbox" value="amnhac" id="amnhac" name="type" th:checked="${#lists.contains(movieDTO.getType(), 'amnhac')}"/>
+            <label class="form-check-label" for="amnhac">Âm nhạc</label>
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="form-check mt-2">
+            <input class="form-check-input" type="checkbox" value="kinhdi" id="kinhdi" name="type" th:checked="${#lists.contains(movieDTO.getType(), 'kinhdi')}"/>
+            <label class="form-check-label" for="kinhdi">Kinh dị</label>
+          </div>
+
+          <div class="form-check mt-2">
+            <input class="form-check-input" type="checkbox" value="phieulieu" id="phieulieu" name="type" th:checked="${#lists.contains(movieDTO.getType(), 'phieulieu')}"/>
+            <label class="form-check-label" for="phieulieu">Phiêu liêu</label>
+          </div>
+
+          <div class="form-check mt-2">
+            <input class="form-check-input" type="checkbox" value="tamly" id="tamly" name="type" th:checked="${#lists.contains(movieDTO.getType(), 'tamly')}"/>
+            <label class="form-check-label" for="tamly">Tâm lý 18+</label>
+          </div>
+
+          <div class="form-check mt-2">
+            <input class="form-check-input" type="checkbox" value="hoathinh" id="hoathinh" name="type" th:checked="${#lists.contains(movieDTO.getType(), 'hoathinh')}"/>
+            <label class="form-check-label" for="hoathinh">Hoạt hình</label>
+          </div>
+        </div>
+      </div>
+      <div id="type_mess" class="text-danger ml-1"></div>
+    </div>
+
+    <div class="mt-3">
+      <div class="font-weight-bold mt-3">
+        <label for="room">Cinema Room: <span class="text-danger">*</span></label>
+      </div>
+      <select class="form-control" id="room" name="room">
+        <option selected disabled>Select Room</option>
+<!--        <option th:if="${cinemaRooms.empty}">No Room Available</option>-->
+
+        <span th:each = "cinemaRoom: ${cinemaRooms}">
+          <span th:if="${cinemaRoom.getRoomID()} == ${movieDTO.room}">
+            <option  th:value="${cinemaRoom.getRoomID()}" selected><span th:text="${cinemaRoom.getCinemaRoomName()}"/></option>
+          </span>
+          <span th:unless="${cinemaRoom.getRoomID()} == ${movieDTO.room}">
+            <option  th:value="${cinemaRoom.getRoomID()}"><span th:text="${cinemaRoom.getCinemaRoomName()}"/></option>
+          </span>
+
+        </span>
+
+
+<!--        <option th:each = "cinemaRoom: ${cinemaRooms}" th:value="${cinemaRoom.getRoomID()}"><span th:text="${cinemaRoom.getCinemaRoomName()}"/></option>-->
+
+<!--        <option value="1">Cinema Room 1</option>-->
+<!--        <option value="2">Cinema Room 2</option>-->
+<!--        <option value="3">Cinema Room 3</option>-->
+<!--        <option value="4">Cinema Room 4</option>-->
+      </select>
+      <div id="room_mess" class="text-danger ml-1"></div>
+    </div>
+
+    <div class="mt-3">
+      <div class="font-weight-bold mt-3">
+        <label for="">Schedule: <span class="text-danger">*</span></label>
+      </div>
+
+      <div class="row">
+        <div class="ml-3 col-3">
+
+
+
+          <div class="form-check mt-2">
+
+            <input class="form-check-input" type="checkbox" value="08:00" id="08:00" name="times"  th:checked="${#lists.contains(time, '08:00')}"/>
+            <label class="form-check-label" for="08:00">08:00</label>
+          </div>
+
+          <div class="form-check mt-2">
+            <input class="form-check-input" type="checkbox" value="09:00" id="09:00" name="times" th:checked="${#lists.contains(time, '09:00')}"/>
+            <label class="form-check-label" for="09:00">09:00</label>
+          </div>
+
+          <div class="form-check mt-2">
+            <input class="form-check-input" type="checkbox" value="10:00" id="10:00" name="times" th:checked="${#lists.contains(time, '10:00')}"/>
+            <label class="form-check-label" for="10:00">10:00</label>
+          </div>
+
+          <div class="form-check mt-2">
+            <input class="form-check-input" type="checkbox" value="11:00" id="11:00" name="times" th:checked="${#lists.contains(time, '11:00')}"/>
+            <label class="form-check-label" for="11:00">11:00</label>
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="form-check mt-2">
+            <input class="form-check-input" type="checkbox" value="13:30" id="13:30" name="times" th:checked="${#lists.contains(time, '13:30')}"/>
+
+            <label class="form-check-label" for="13:30">13:30</label>
+          </div>
+
+          <div class="form-check mt-2">
+            <input class="form-check-input" type="checkbox" value="14:30" id="14:30" name="times" th:checked="${#lists.contains(time, '14:30')}"/>
+            <label class="form-check-label" for="14:30">14:30</label>
+          </div>
+
+          <div class="form-check mt-2">
+            <input class="form-check-input" type="checkbox" value="15:00" id="15:00" name="times" th:checked="${#lists.contains(time, '15:00')}"/>
+            <label class="form-check-label" for="15:00">15:00</label>
+          </div>
+
+          <div class="form-check mt-2">
+            <input class="form-check-input" type="checkbox" value="17:00" id="17:00" name="times" th:checked="${#lists.contains(time, '17:00')}"/>
+            <label class="form-check-label" for="17:00">17:00</label>
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="form-check mt-2">
+            <input class="form-check-input" type="checkbox" value="18:30" id="18:30" name="times" th:checked="${#lists.contains(time, '18:30')}"/>
+            <label class="form-check-label" for="18:30">18:30</label>
+          </div>
+
+          <div class="form-check mt-2">
+            <input class="form-check-input" type="checkbox" value="19:00" id="19:00" name="times" th:checked="${#lists.contains(time, '19:00')}"/>
+            <label class="form-check-label" for="19:00">19:00</label>
+          </div>
+
+          <div class="form-check mt-2">
+            <input class="form-check-input" type="checkbox" value="20:00" id="20:00" name="times" th:checked="${#lists.contains(time, '20:00')}"/>
+            <label class="form-check-label" for="20:00">20:00</label>
+          </div>
+
+          <div class="form-check mt-2">
+            <input class="form-check-input" type="checkbox" value="21:00" id="21:00" name="times" th:checked="${#lists.contains(time, '21:00')}"/>
+            <label class="form-check-label" for="21:00">21:00</label>
+          </div>
+        </div>
+      </div>
+      <div id="times_mess" class="text-danger ml-1">
+<!--        <span th:text="#{messeger}"></span>-->
+        <p th:if="${#fields.hasErrors('times')}" th:errorclass="error" th:errors="*{times}" />
+      </div>
+
+    </div>
+
+    <div class="mt-3">
+      <div class="font-weight-bold mt-3">
+        <label for="content">Content: <span class="text-danger">*</span></label>
+      </div>
+      <textarea class="form-control" th:field="${movieDTO.content}" placeholder="Content" id="content" name="content"></textarea>
+      <div id="content_mess" class="text-danger ml-1"></div>
+    </div>
+
+    <div class="mt-3">
+      <div class="font-weight-bold mt-3">
+        <label for="image">Image: <span class="text-danger">*</span></label>
+      </div>
+      <input type="text" name="image" id="image" th:field="${movieDTO.image}" class="col-12 form-control">
+      <div id="image_mess" class="text-danger ml-1"></div>
+    </div>
+
+    <div class="mt-3 mb-3">
+      <button type="submit" class="btn btn-primary" id="buttonAdd">
+        <i class="fa-solid fa-check"></i>
+        Save
+      </button>
+      <a th:href="@{/movie/list-movie}"><button type="button" class="btn btn-primary" id="buttonReset">
+        <i class="fa-solid fa-x"></i>
+        Back
+      </button></a>
+    </div>
+
+
+  </form>
+
+</div>
+
+
+
+
+
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js" type="text/javascript"></script>
+<script type="text/javascript" th:src="@{/js/addMovie.js}"></script>
+</body>
+</html>
